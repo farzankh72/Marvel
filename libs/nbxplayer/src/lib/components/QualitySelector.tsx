@@ -1,15 +1,8 @@
-import {useVideoContext} from "../VideoProvider";
-import {Badge, BadgeProps, Box, IconButton, SpeedDial, SpeedDialAction, SpeedDialIcon, styled} from "@mui/material";
-import {
-  Alarm,
-  BlurCircularOutlined,
-  Edit,
-  FilterBAndW,
-  OpenInBrowser,
-  SaveAlt,
-  Share,
-  SpeedSharp
-} from "@mui/icons-material";
+import { useVideoContext } from '../VideoProvider'
+
+import { Badge, BadgeProps, Box, SpeedDial, SpeedDialAction, styled } from '@mui/material'
+
+import { Alarm, SpeedSharp } from '@mui/icons-material'
 
 const StyledBadge = styled(Badge)<BadgeProps>(() => ({
   '& .MuiBadge-badge': {
@@ -20,42 +13,41 @@ const StyledBadge = styled(Badge)<BadgeProps>(() => ({
 }))
 
 const QualitySelector = () => {
-  const {props, quality} = useVideoContext()
+  const { props, quality } = useVideoContext()
 
   if (typeof props.videoData === 'string') {
-    return (<></>)
+    return <></>
   } else if (typeof props.videoData === 'object') {
     return (
-      <Box sx={{transform: 'translateZ(0px)'}}>
+      <Box sx={{ transform: 'translateZ(0px)' }}>
         <SpeedDial
-          direction="right"
-          ariaLabel="SpeedDial tooltip example"
+          direction='right'
+          ariaLabel='SpeedDial tooltip example'
           sx={{
-            position: 'absolute',
             '& .MuiFab-primary': {
-              color: 'white',
-              backgroundColor: '#a993d1',
               width: 38,
               height: 38,
-              '&:hover': {backgroundColor: 'white', color: '#a993d1'},
+              color: 'white',
+              backgroundColor: '#371D66',
+              '&:hover': { backgroundColor: 'white', color: '#a993d1' },
             },
           }}
-          icon={<SpeedSharp/>}
+          icon={<SpeedSharp />}
         >
           <SpeedDialAction
+            icon={<Alarm />}
             key={'props.videoData.SD'}
-            icon={<Alarm/>}
-            onClick={() => quality(props.videoData.SD)}
+            onClick={() => quality(props.videoData.SD, 'SD')}
           />
           <SpeedDialAction
+            icon={<Alarm />}
             key={'props.videoData.HD'}
-            icon={<Alarm/>}
-            onClick={() => quality(props.videoData.HD)}
+            onClick={() => quality(props.videoData.HD, 'HD')}
           />
           <SpeedDialAction
+            icon={<Alarm />}
             key={'props.videoData.FULL_HD'}
-            icon={<Alarm/>}
-            onClick={() => quality(props.videoData.FULL_HD)}
+            onClick={() => quality(props.videoData.FULL_HD, 'FHD')}
           />
         </SpeedDial>
       </Box>
