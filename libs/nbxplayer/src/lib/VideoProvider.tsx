@@ -1,15 +1,16 @@
-import {createContext, useContext, useEffect, useRef, useState} from "react";
-import {Container} from "@mui/material";
-import SeekBar from "./components/SeekBar";
-import QualitySelector from "./components/QualitySelector";
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
+
+import { Badge, Container } from '@mui/material'
+
+import SeekBar from './components/SeekBar'
+import QualitySelector from './components/QualitySelector'
+import useUserNetQuality from './hooks/useUserNetQuality'
+import FullScreenButton from './components/FullScreenButton'
+import PlayButton from './components/PlayButton'
+import Timer from './components/Timer'
+import SoundButton from './components/SoundButton'
 
 const VideoContext = createContext(null)
-
-export enum VideoQuality {
-  SD = 'SD',
-  HD = 'HD',
-  FULL_HD = 'FULL_HD',
-}
 
 export interface VideoFile {
   SD: string
@@ -19,7 +20,7 @@ export interface VideoFile {
 
 export interface NbxPlayerProps {
   videoData: string | VideoFile
-  width?: "xl" | "md" | "sm" | "lg"
+  width?: 'xl' | 'md' | 'sm' | 'lg'
 }
 
 const VideoProvider = (props: NbxPlayerProps) => {
@@ -27,9 +28,12 @@ const VideoProvider = (props: NbxPlayerProps) => {
   const [currentTime, setCurrentTime] = useState<number>(0)
   const [videoTagRef, setVideoTagRef] = useState<HTMLVideoElement>()
   const [sourceTagRef, setSourceTagRef] = useState<HTMLSourceElement>()
-  const [videoUrl, setVideoUrl] = useState<string>('')
+  const [qualityLabel, setQualityLabel] = useState<string>('')
 
-  const containerRef = useRef(null)
+  const netQuality = useUserNetQuality()
+
+  const videoContainerRef = useRef(null)
+  const containerRef = useRef()
 
   useEffect(() => {
     setVideoTagRef(document?.createElement('video'))
@@ -41,14 +45,38 @@ const VideoProvider = (props: NbxPlayerProps) => {
     videoTagRef.currentTime = time
   }
 
-  const quality = (url: string) => {
+  const quality = (url: string, quality: string) => {
     sourceTagRef.src = url
+    setQualityLabel(quality)
     sourceCreator()
+  }
+
+  const fullScreen = () => {
+    if (!document.fullscreenElement) {
+      containerRef.current.requestFullscreen()
+    } else {
+      document.exitFullscreen()
+    }
+  }
+
+  const play = () => {
+    if (videoTagRef.paused) {
+      videoTagRef.play()
+    } else {
+      videoTagRef.pause()
+    }
+  }
+
+  const soundOn = () => {
+    if (videoTagRef.volume === 0) {
+      videoTagRef.volume = 1
+    } else {
+      videoTagRef.volume = 0
+    }
   }
 
   const sourceCreator = () => {
     videoTagRef.width = 300
-    videoTagRef.controls = true
     videoTagRef.ontimeupdate = () => {
       setCurrentTime(videoTagRef.currentTime)
     }
@@ -56,31 +84,50 @@ const VideoProvider = (props: NbxPlayerProps) => {
       setDuration(videoTagRef.duration)
     }
     videoTagRef.appendChild(sourceTagRef)
-    if (containerRef?.current?.innerHTML) {
-      containerRef.current.innerHTML = ''
+    if (videoContainerRef?.current?.innerHTML) {
+      videoContainerRef.current.innerHTML = ''
     }
     videoTagRef.load()
-    containerRef?.current?.appendChild(videoTagRef)
+    videoContainerRef?.current?.appendChild(videoTagRef)
     setDuration(videoTagRef.duration)
   }
 
   useEffect(() => {
     if (videoTagRef) {
-      if (typeof props.videoData === "string") {
+      if (typeof props.videoData === 'string') {
         sourceTagRef.src = props.videoData
-      } else if (typeof props.videoData === "object") {
-        sourceTagRef.src = props.videoData.SD
+      } else if (typeof props.videoData === 'object') {
+        switch (netQuality) {
+          case 'SD':
+            sourceTagRef.src = props.videoData.SD
+            setQualityLabel('SD')
+            break
+          case 'HD':
+            sourceTagRef.src = props.videoData.HD
+            setQualityLabel('HD')
+            break
+          case 'FULL_HD':
+            sourceTagRef.src = props.videoData.FULL_HD
+            setQualityLabel('FHD')
+            break
+        }
       }
       sourceCreator()
     }
   }, [videoTagRef])
 
   return (
-    <VideoContext.Provider value={{currentTime, duration, seek, props, quality}}>
-      <Container maxWidth={"xl"}>
-        <Container ref={containerRef}/>
-        <SeekBar/>
-        <QualitySelector/>
+    <VideoContext.Provider
+      value={{ currentTime, duration, seek, props, quality, fullScreen, play, soundOn }}
+    >
+      <Container maxWidth={'xl'} ref={containerRef}>
+        <Container ref={videoContainerRef} />
+        <SeekBar />
+        <QualitySelector />
+        <FullScreenButton />
+        <PlayButton />
+        <Timer />
+        <SoundButton />
       </Container>
     </VideoContext.Provider>
   )
