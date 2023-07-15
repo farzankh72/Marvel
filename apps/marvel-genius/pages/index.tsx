@@ -1,6 +1,7 @@
-import {Nbxplayer} from "@marvel/nbxplayer";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import {Container, Divider} from "@mui/material";
+import VideoProvider from "../../../libs/nbxplayer/src/lib/VideoProvider";
 
 export function Index() {
 
@@ -16,9 +17,19 @@ export function Index() {
   }, [])
 
   return (
-    <span>
-      <Nbxplayer data={'https://academycdn.nobitex.ir/academy/api/file/download/' + data}/>
-    </span>
+    <Container>
+      <VideoProvider videoData={'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ'}/>
+      <Divider/>
+      <VideoProvider
+        videoData={
+          {
+            SD: 'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
+            HD: 'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
+            FHD: 'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
+          }
+        }
+      />
+    </Container>
   );
 }
 
