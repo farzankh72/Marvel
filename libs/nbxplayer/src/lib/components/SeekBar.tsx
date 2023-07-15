@@ -1,5 +1,6 @@
-import {useVideoContext} from "../VideoProvider";
-import {Slider, styled} from "@mui/material";
+import { Slider, styled } from '@mui/material'
+
+import { useVideoContext } from '../VideoProvider'
 
 const NobitexSlider = styled(Slider)({
   color: '#371D66',
@@ -37,7 +38,7 @@ const NobitexSlider = styled(Slider)({
     backgroundColor: '#FFA726',
     transformOrigin: 'bottom left',
     transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
-    '&:before': {display: 'none'},
+    '&:before': { display: 'none' },
     '&.MuiSlider-valueLabelOpen': {
       transform: 'translate(50%, -100%) rotate(-45deg) scale(1)',
     },
@@ -45,10 +46,10 @@ const NobitexSlider = styled(Slider)({
       transform: 'rotate(45deg)',
     },
   },
-});
+})
 
 const SeekBar = () => {
-  const {currentTime, duration, seek} = useVideoContext()
+  const { currentTime, duration, seek } = useVideoContext()
 
   const handleChangeSeekBar = (event, newValue) => {
     seek(newValue)
@@ -68,8 +69,8 @@ const SeekBar = () => {
     <NobitexSlider
       valueLabelFormat={valueTextTopSeekBar}
       onChange={handleChangeSeekBar}
-      aria-label="Temperature"
-      valueLabelDisplay="auto"
+      aria-label='Temperature'
+      valueLabelDisplay='auto'
       value={Math.round(currentTime)}
       marks
       min={0}
