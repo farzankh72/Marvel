@@ -67,14 +67,14 @@ const SeekBar = () => {
 
   return (
     <NobitexSlider
-      valueLabelFormat={valueTextTopSeekBar}
-      onChange={handleChangeSeekBar}
-      aria-label='Temperature'
-      valueLabelDisplay='auto'
-      value={Math.round(currentTime)}
       marks
       min={0}
       max={duration || 100}
+      valueLabelDisplay='auto'
+      aria-label='Temperature'
+      onChange={handleChangeSeekBar}
+      value={Math.round(currentTime)}
+      valueLabelFormat={valueTextTopSeekBar}
     />
   )
 }

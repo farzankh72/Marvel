@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useVideoContext } from '../VideoProvider'
 import { useEffect, useMemo } from 'react'
 
@@ -37,9 +37,11 @@ const Timer = () => {
     return <></>
   } else {
     return (
-      <Typography>
-        {videoCurrentTime} / {videoTime}
-      </Typography>
+      <Box alignSelf={'center'}>
+        <Typography>
+          {videoCurrentTime} / {videoTime}
+        </Typography>
+      </Box>
     )
   }
 }
