@@ -1,14 +1,16 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 
-import { Badge, Box, Container, Grid, Stack } from '@mui/material'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
 
-import SeekBar from './components/SeekBar'
-import QualitySelector from './components/QualitySelector'
-import useUserNetQuality from './hooks/useUserNetQuality'
-import FullScreenButton from './components/FullScreenButton'
-import PlayButton from './components/PlayButton'
 import Timer from './components/Timer'
+import SeekBar from './components/SeekBar'
+import PlayButton from './components/PlayButton'
 import SoundButton from './components/SoundButton'
+import useUserNetQuality from './hooks/useUserNetQuality'
+import QualitySelector from './components/QualitySelector'
+import FullScreenButton from './components/FullScreenButton'
 
 const VideoContext = createContext(null)
 
@@ -50,18 +52,6 @@ const VideoProvider = (props: NbxPlayerProps) => {
     setQualityLabel(quality)
     sourceCreator()
   }
-
-  // const fullScreen = () => {
-  //   if (!document.fullscreenElement) {
-  //     containerRef.current.requestFullscreen()
-  //     videoTagRef.style.height = 'auto'
-  //     videoTagRef.style.width = 'auto'
-  //   } else {
-  //     document.exitFullscreen()
-  //     videoTagRef.style.height = 'auto'
-  //     videoTagRef.style.width = 'auto'
-  //   }
-  // }
 
   const play = () => {
     if (videoTagRef.paused) {
@@ -137,22 +127,29 @@ const VideoProvider = (props: NbxPlayerProps) => {
       <Grid container ref={containerRef}>
         <Grid item position={'relative'} display={'flex'}>
           <Box ref={videoContainerRef} />
-          <Grid pr={2} pl={2} container position={'absolute'} bottom={0}>
-            <Grid item xs={9} alignSelf={'center'}>
+          <Grid
+            pr={2}
+            pl={2}
+            container
+            bottom={0}
+            position={'absolute'}
+            sx={{ backgroundColor: '#ffffff20' }}
+          >
+            <Grid item xs={12}>
+              <SeekBar />
+            </Grid>
+            <Grid pb={1} item xs={9} alignSelf={'center'}>
               <Stack direction={'row'} spacing={1}>
                 <PlayButton />
                 <Timer />
                 <QualitySelector />
               </Stack>
             </Grid>
-            <Grid item xs={3} alignSelf={'center'}>
+            <Grid pb={1} item xs={3} alignSelf={'center'}>
               <Stack direction={'row'} spacing={1} justifyContent={'end'}>
                 <FullScreenButton />
                 <SoundButton />
               </Stack>
-            </Grid>
-            <Grid item xs={12}>
-              <SeekBar />
             </Grid>
           </Grid>
         </Grid>

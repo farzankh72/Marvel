@@ -1,13 +1,15 @@
-import { Box, IconButton } from '@mui/material'
-import { VolumeUp } from '@mui/icons-material'
 import { useVideoContext } from '../VideoProvider'
+
+import Box from '@mui/material/Box'
+import { VolumeUp } from '@mui/icons-material'
+import IconButton from '@mui/material/IconButton'
 
 const SoundButton = () => {
   const { soundOn } = useVideoContext()
   return (
     <Box alignSelf={'center'}>
-      <IconButton sx={{ backgroundColor: '#371D66' }} onClick={soundOn}>
-        <VolumeUp color={'warning'} />
+      <IconButton sx={{ backgroundColor: '#371D66' }} onClick={soundOn} size={'small'}>
+        <VolumeUp color={'warning'} fontSize={'small'} />
       </IconButton>
     </Box>
   )

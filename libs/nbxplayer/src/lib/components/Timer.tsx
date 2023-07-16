@@ -1,6 +1,8 @@
-import { Box, Typography } from '@mui/material'
+import { useMemo } from 'react'
+
 import { useVideoContext } from '../VideoProvider'
-import { useEffect, useMemo } from 'react'
+
+import { Box, Typography } from '@mui/material'
 
 const Timer = () => {
   const { currentTime, duration } = useVideoContext()
@@ -34,11 +36,15 @@ const Timer = () => {
   }, [currentTime])
 
   if (!duration) {
-    return <></>
+    return (
+      <Box alignSelf={'center'}>
+        <Typography>0:00</Typography>
+      </Box>
+    )
   } else {
     return (
       <Box alignSelf={'center'}>
-        <Typography>
+        <Typography color={'white'} variant={'caption'}>
           {videoCurrentTime} / {videoTime}
         </Typography>
       </Box>
