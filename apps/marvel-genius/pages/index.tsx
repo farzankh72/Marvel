@@ -1,20 +1,8 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
 import { Container, Divider } from '@mui/material'
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import VideoProvider from '../../../libs/nbxplayer/src/lib/VideoProvider'
 
 export function Index() {
-  const [data, setData] = useState()
-
-  async function fetchData() {
-    const data = await axios.get('https://nobitex.ir/academy/api/course?uniqueName=crs-4308')
-    setData(data.data.items[0]?.trailer?.fileKey)
-  }
-
-  useEffect(() => {
-    fetchData().then()
-  }, [])
-
   return (
     <Container>
       <VideoProvider
