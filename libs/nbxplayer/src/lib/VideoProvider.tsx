@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 
-import { Badge, Container } from '@mui/material'
+import { Badge, Box, Container, Grid, Stack } from '@mui/material'
 
 import SeekBar from './components/SeekBar'
 import QualitySelector from './components/QualitySelector'
@@ -51,13 +51,17 @@ const VideoProvider = (props: NbxPlayerProps) => {
     sourceCreator()
   }
 
-  const fullScreen = () => {
-    if (!document.fullscreenElement) {
-      containerRef.current.requestFullscreen()
-    } else {
-      document.exitFullscreen()
-    }
-  }
+  // const fullScreen = () => {
+  //   if (!document.fullscreenElement) {
+  //     containerRef.current.requestFullscreen()
+  //     videoTagRef.style.height = 'auto'
+  //     videoTagRef.style.width = 'auto'
+  //   } else {
+  //     document.exitFullscreen()
+  //     videoTagRef.style.height = 'auto'
+  //     videoTagRef.style.width = 'auto'
+  //   }
+  // }
 
   const play = () => {
     if (videoTagRef.paused) {
@@ -76,7 +80,7 @@ const VideoProvider = (props: NbxPlayerProps) => {
   }
 
   const sourceCreator = () => {
-    videoTagRef.width = 300
+    videoTagRef.height = 300
     videoTagRef.ontimeupdate = () => {
       setCurrentTime(videoTagRef.currentTime)
     }
@@ -118,17 +122,41 @@ const VideoProvider = (props: NbxPlayerProps) => {
 
   return (
     <VideoContext.Provider
-      value={{ currentTime, duration, seek, props, quality, fullScreen, play, soundOn }}
+      value={{
+        seek,
+        play,
+        props,
+        quality,
+        soundOn,
+        duration,
+        currentTime,
+        videoTagRef,
+        containerRef,
+      }}
     >
-      <Container maxWidth={'xl'} ref={containerRef}>
-        <Container ref={videoContainerRef} />
-        <SeekBar />
-        <QualitySelector />
-        <FullScreenButton />
-        <PlayButton />
-        <Timer />
-        <SoundButton />
-      </Container>
+      <Grid container ref={containerRef}>
+        <Grid item position={'relative'} display={'flex'}>
+          <Box ref={videoContainerRef} />
+          <Grid pr={2} pl={2} container position={'absolute'} bottom={0}>
+            <Grid item xs={9} alignSelf={'center'}>
+              <Stack direction={'row'} spacing={1}>
+                <PlayButton />
+                <Timer />
+                <QualitySelector />
+              </Stack>
+            </Grid>
+            <Grid item xs={3} alignSelf={'center'}>
+              <Stack direction={'row'} spacing={1} justifyContent={'end'}>
+                <FullScreenButton />
+                <SoundButton />
+              </Stack>
+            </Grid>
+            <Grid item xs={12}>
+              <SeekBar />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
     </VideoContext.Provider>
   )
 }
