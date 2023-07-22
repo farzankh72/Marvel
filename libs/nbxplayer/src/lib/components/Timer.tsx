@@ -38,7 +38,9 @@ const Timer = () => {
   if (!duration) {
     return (
       <Box alignSelf={'center'}>
-        <Typography>0:00</Typography>
+        <Typography color={'white'} variant={'caption'}>
+          0:00
+        </Typography>
       </Box>
     )
   } else {

@@ -47,8 +47,12 @@ const FullScreenButton = () => {
 
   return (
     <Box alignSelf={'center'}>
-      <IconButton sx={{ backgroundColor: '#371D66' }} onClick={toggleFullScreen} size={'small'}>
-        <Fullscreen color={'warning'} fontSize={'small'} />
+      <IconButton
+        size={'small'}
+        onClick={toggleFullScreen}
+        sx={{ backgroundColor: '#371d6660', color: 'white' }}
+      >
+        <Fullscreen fontSize={'small'} />
       </IconButton>
     </Box>
   )

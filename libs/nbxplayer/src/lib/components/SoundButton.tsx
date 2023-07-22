@@ -8,8 +8,12 @@ const SoundButton = () => {
   const { soundOn } = useVideoContext()
   return (
     <Box alignSelf={'center'}>
-      <IconButton sx={{ backgroundColor: '#371D66' }} onClick={soundOn} size={'small'}>
-        <VolumeUp color={'warning'} fontSize={'small'} />
+      <IconButton
+        size={'small'}
+        onClick={soundOn}
+        sx={{ backgroundColor: '#371d6660', color: 'white' }}
+      >
+        <VolumeUp color={'inherit'} fontSize={'small'} />
       </IconButton>
     </Box>
   )

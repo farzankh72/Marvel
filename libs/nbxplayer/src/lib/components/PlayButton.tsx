@@ -8,8 +8,12 @@ const PlayButton = () => {
   const { play } = useVideoContext()
   return (
     <Box alignSelf={'center'}>
-      <IconButton sx={{ backgroundColor: '#371D66' }} onClick={play} size={'small'}>
-        <PlayArrow fontSize={'small'} color={'warning'} />
+      <IconButton
+        size={'small'}
+        onClick={play}
+        sx={{ backgroundColor: '#371d6660', color: 'white' }}
+      >
+        <PlayArrow fontSize={'small'} />
       </IconButton>
     </Box>
   )
