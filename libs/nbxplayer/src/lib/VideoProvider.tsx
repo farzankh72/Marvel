@@ -9,19 +9,18 @@ import SeekBar from './components/SeekBar'
 import PlayButton from './components/PlayButton'
 import SoundButton from './components/SoundButton'
 import useUserNetQuality from './hooks/useUserNetQuality'
-import QualitySelector from './components/QualitySelector'
+import QualitySelector from './components/QualitySelector/QualitySelector'
 import FullScreenButton from './components/FullScreenButton'
 
 const VideoContext = createContext(null)
 
 export interface VideoFile {
-  SD: string
-  HD: string
-  FULL_HD: string
+  quality: string
+  url: string
 }
 
 export interface NbxPlayerProps {
-  videoData: string | VideoFile
+  videoData: string | Array<VideoFile>
   width?: 'xl' | 'md' | 'sm' | 'lg'
 }
 
@@ -90,21 +89,13 @@ const VideoProvider = (props: NbxPlayerProps) => {
     if (videoTagRef) {
       if (typeof props.videoData === 'string') {
         sourceTagRef.src = props.videoData
-      } else if (typeof props.videoData === 'object') {
-        switch (netQuality) {
-          case 'SD':
-            sourceTagRef.src = props.videoData.SD
-            setQualityLabel('SD')
-            break
-          case 'HD':
-            sourceTagRef.src = props.videoData.HD
-            setQualityLabel('HD')
-            break
-          case 'FULL_HD':
-            sourceTagRef.src = props.videoData.FULL_HD
-            setQualityLabel('FHD')
-            break
-        }
+      } else if (Array.isArray(props.videoData)) {
+        props.videoData.map((item) => {
+          if (item.quality === netQuality) {
+            setQualityLabel(item.quality)
+            sourceTagRef.src = item.url
+          }
+        })
       }
       sourceCreator()
     }
@@ -121,6 +112,7 @@ const VideoProvider = (props: NbxPlayerProps) => {
         duration,
         currentTime,
         videoTagRef,
+        qualityLabel,
         containerRef,
       }}
     >
@@ -133,7 +125,9 @@ const VideoProvider = (props: NbxPlayerProps) => {
             container
             bottom={0}
             position={'absolute'}
-            sx={{ backgroundColor: '#ffffff20' }}
+            sx={{
+              backgroundImage: 'linear-gradient(to top ,#371D66,#371D6601)',
+            }}
           >
             <Grid item xs={12}>
               <SeekBar />

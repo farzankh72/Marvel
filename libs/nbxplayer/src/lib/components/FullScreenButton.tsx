@@ -45,19 +45,6 @@ const FullScreenButton = () => {
     }
   }
 
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress) // Add keydown event listener
-    return () => {
-      document.removeEventListener('keydown', handleKeyPress) // Clean up event listener
-    }
-  }, [])
-
-  const handleKeyPress = (event) => {
-    if (event.key === 'Escape') {
-      videoTagRef.style = { ...videoTagRef.style, height: '300px' }
-    }
-  }
-
   return (
     <Box alignSelf={'center'}>
       <IconButton sx={{ backgroundColor: '#371D66' }} onClick={toggleFullScreen} size={'small'}>

@@ -12,12 +12,23 @@ export function Index() {
       />
       <Divider />
       <VideoProvider
-        videoData={{
-          SD: 'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
-          HD: 'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
-          FULL_HD:
-            'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
-        }}
+        videoData={[
+          {
+            url:
+              'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
+            quality: 'SD',
+          },
+          {
+            url:
+              'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
+            quality: 'HD',
+          },
+          {
+            url:
+              'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
+            quality: 'FHD',
+          },
+        ]}
       />
     </Container>
   )
