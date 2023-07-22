@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Box from '@mui/material/Box'
 import { styled, Typography } from '@mui/material'
 
-import gear from '../../assets/images/gear-quality.png'
+import gear from '../../public/assets/images/gear-quality.png'
 import { useVideoContext } from '../../VideoProvider'
 
 const QualityWrapper = styled(Box)`

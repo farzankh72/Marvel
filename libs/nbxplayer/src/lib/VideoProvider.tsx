@@ -8,24 +8,21 @@ import Timer from './components/Timer'
 import SeekBar from './components/SeekBar'
 import PlayButton from './components/PlayButton'
 import SoundButton from './components/SoundButton'
-import useUserNetQuality from './hooks/useUserNetQuality'
-import QualitySelector from './components/QualitySelector/QualitySelector'
 import FullScreenButton from './components/FullScreenButton'
+import useUserNetQuality from './api/hooks/useUserNetQuality'
+import QualitySelector from './components/QualitySelector/QualitySelector'
+import SpeedSelector from './components/SpeedSelector/SpeedSelector'
 
 const VideoContext = createContext(null)
 
-export interface VideoFile {
-  quality: string
-  url: string
-}
-
 export interface NbxPlayerProps {
-  videoData: string | Array<VideoFile>
+  videoData: string | Array<VideoModel>
   width?: 'xl' | 'md' | 'sm' | 'lg'
 }
 
 const VideoProvider = (props: NbxPlayerProps) => {
   const [duration, setDuration] = useState<number>(0)
+  const [speedLvl, setSpeedLvl] = useState<number>(1)
   const [currentTime, setCurrentTime] = useState<number>(0)
   const [videoTagRef, setVideoTagRef] = useState<HTMLVideoElement>()
   const [sourceTagRef, setSourceTagRef] = useState<HTMLSourceElement>()
@@ -50,6 +47,11 @@ const VideoProvider = (props: NbxPlayerProps) => {
     sourceTagRef.src = url
     setQualityLabel(quality)
     sourceCreator()
+  }
+
+  const speed = (speed: number) => {
+    setSpeedLvl(speed)
+    videoTagRef.playbackRate = speed
   }
 
   const play = () => {
@@ -106,9 +108,11 @@ const VideoProvider = (props: NbxPlayerProps) => {
       value={{
         seek,
         play,
+        speed,
         props,
         quality,
         soundOn,
+        speedLvl,
         duration,
         currentTime,
         videoTagRef,
@@ -141,6 +145,7 @@ const VideoProvider = (props: NbxPlayerProps) => {
             </Grid>
             <Grid pb={1} item xs={3} alignSelf={'center'}>
               <Stack direction={'row'} spacing={1} justifyContent={'end'}>
+                <SpeedSelector />
                 <FullScreenButton />
                 <SoundButton />
               </Stack>
