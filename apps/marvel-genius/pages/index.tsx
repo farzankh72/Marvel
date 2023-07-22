@@ -6,27 +6,23 @@ export function Index() {
   return (
     <Container>
       <VideoProvider
-        videoData={
-          'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ'
-        }
+        poster={'https://nobitex.ir/academy/api/file/download/ZtdNUgGvuyfuBoGuwEvi'}
+        videoData={'https://nobitex.ir/academy/api/file/download/UjYJHOZYPKnuzopPluZe'}
       />
       <Divider />
       <VideoProvider
         poster={'https://nobitex.ir/academy/api/file/download/ZtdNUgGvuyfuBoGuwEvi'}
         videoData={[
           {
-            url:
-              'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
+            url: 'https://nobitex.ir/academy/api/file/download/UjYJHOZYPKnuzopPluZe',
             quality: 'SD',
           },
           {
-            url:
-              'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
+            url: 'https://nobitex.ir/academy/api/file/download/YvTqNcoLiydduRCwHizM',
             quality: 'HD',
           },
           {
-            url:
-              'https://academycdn.nobitex.ir/academy/api/file/download/' + 'OXQyGFBxbxodUObMHNSZ',
+            url: 'https://nobitex.ir/academy/api/file/download/SDyKdGLPYwuJZLFDYBoD',
             quality: 'FHD',
           },
         ]}

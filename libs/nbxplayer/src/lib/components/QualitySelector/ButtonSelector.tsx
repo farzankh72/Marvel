@@ -115,7 +115,7 @@ const ButtonSelector = () => {
           <Typography variant={'caption'}>{qualityLabel}</Typography>
         </span>
         <span>
-          <Image src={gear.src} width={24} height={24} />
+          <Image alt={'gear'} src={gear.src} width={24} height={24} />
         </span>
         <ul>
           {props.videoData &&

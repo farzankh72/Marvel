@@ -79,13 +79,12 @@ const VideoProvider = (props: NbxPlayerProps) => {
     videoTagRef.oncanplay = () => {
       setDuration(videoTagRef.duration)
     }
-
-    videoTagRef.poster = props.poster || ''
-
     videoTagRef.appendChild(sourceTagRef)
     if (videoContainerRef?.current?.innerHTML) {
       videoContainerRef.current.innerHTML = ''
     }
+    videoTagRef.poster = props.poster || ''
+
     videoTagRef.load()
     videoContainerRef?.current?.appendChild(videoTagRef)
     setDuration(videoTagRef.duration)

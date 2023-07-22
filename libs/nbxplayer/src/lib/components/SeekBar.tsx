@@ -4,9 +4,10 @@ import { useVideoContext } from '../VideoProvider'
 
 const NobitexSlider = styled(Slider)({
   height: 6,
-  color: '#371D66',
   padding: 0,
+  color: '#371D66',
   transition: 'all 50ms ease-in',
+  boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.2)',
   '& .MuiSlider-track': {
     border: 'none',
   },

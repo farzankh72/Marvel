@@ -3,9 +3,10 @@ import { useVideoContext } from '../VideoProvider'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import PlayArrow from '@mui/icons-material/PlayArrow'
+import { Pause } from '@mui/icons-material'
 
 const PlayButton = () => {
-  const { play } = useVideoContext()
+  const { play, videoTagRef } = useVideoContext()
   return (
     <Box alignSelf={'center'}>
       <IconButton
@@ -13,7 +14,7 @@ const PlayButton = () => {
         onClick={play}
         sx={{ backgroundColor: '#371d6660', color: 'white' }}
       >
-        <PlayArrow fontSize={'small'} />
+        {videoTagRef?.paused ? <PlayArrow fontSize={'small'} /> : <Pause fontSize={'small'} />}
       </IconButton>
     </Box>
   )
