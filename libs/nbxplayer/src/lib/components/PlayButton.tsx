@@ -1,9 +1,9 @@
 import { useVideoContext } from '../VideoProvider'
 
 import Box from '@mui/material/Box'
+import Pause from '@mui/icons-material/Pause'
 import IconButton from '@mui/material/IconButton'
 import PlayArrow from '@mui/icons-material/PlayArrow'
-import { Pause } from '@mui/icons-material'
 
 const PlayButton = () => {
   const { play, videoTagRef } = useVideoContext()

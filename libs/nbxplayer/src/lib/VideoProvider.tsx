@@ -1,3 +1,4 @@
+import { styled } from '@mui/material'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 
 import Box from '@mui/material/Box'
@@ -15,6 +16,12 @@ import QualitySelector from './components/QualitySelector/QualitySelector'
 
 const VideoContext = createContext(null)
 
+const SeekbarWrapper = styled(Grid)`
+  bottom: 0;
+  position: absolute;
+  background-image: linear-gradient(to top, #371d66, #371d6601);
+`
+
 export interface NbxPlayerProps {
   poster?: string
   width?: 'xl' | 'md' | 'sm' | 'lg'
@@ -31,8 +38,9 @@ const VideoProvider = (props: NbxPlayerProps) => {
 
   const netQuality = useUserNetQuality()
 
-  const videoContainerRef = useRef(null)
   const containerRef = useRef()
+  const videoContainerRef = useRef(null)
+  const seekerContainerRef = useRef(null)
 
   useEffect(() => {
     setVideoTagRef(document?.createElement('video'))
@@ -126,16 +134,7 @@ const VideoProvider = (props: NbxPlayerProps) => {
       <Grid container ref={containerRef}>
         <Grid item position={'relative'} display={'flex'}>
           <Box ref={videoContainerRef} />
-          <Grid
-            pr={2}
-            pl={2}
-            container
-            bottom={0}
-            position={'absolute'}
-            sx={{
-              backgroundImage: 'linear-gradient(to top ,#371D66,#371D6601)',
-            }}
-          >
+          <SeekbarWrapper ref={seekerContainerRef} pr={2} pl={2} container>
             <Grid item xs={12}>
               <SeekBar />
             </Grid>
@@ -153,7 +152,7 @@ const VideoProvider = (props: NbxPlayerProps) => {
                 <SoundButton />
               </Stack>
             </Grid>
-          </Grid>
+          </SeekbarWrapper>
         </Grid>
       </Grid>
     </VideoContext.Provider>

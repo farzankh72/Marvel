@@ -1,5 +1,6 @@
-import { Box, styled, Typography } from '@mui/material'
 import { Speed } from '@mui/icons-material'
+import { Box, styled, Typography } from '@mui/material'
+
 import { useVideoContext } from '../../VideoProvider'
 
 const Wrapper = styled(Box)`

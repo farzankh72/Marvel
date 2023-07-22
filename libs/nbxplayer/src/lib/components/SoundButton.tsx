@@ -1,8 +1,9 @@
 import { useVideoContext } from '../VideoProvider'
 
 import Box from '@mui/material/Box'
-import { VolumeMute, VolumeUp } from '@mui/icons-material'
 import IconButton from '@mui/material/IconButton'
+import VolumeUp from '@mui/icons-material/VolumeUp'
+import VolumeMute from '@mui/icons-material/VolumeMute'
 
 const SoundButton = () => {
   const { soundOn, videoTagRef } = useVideoContext()

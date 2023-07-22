@@ -1,6 +1,6 @@
-import { useVideoContext } from '../../VideoProvider'
-
 import ButtonSelector from './ButtonSelector'
+
+import { useVideoContext } from '../../VideoProvider'
 
 const QualitySelector = () => {
   const { props } = useVideoContext()

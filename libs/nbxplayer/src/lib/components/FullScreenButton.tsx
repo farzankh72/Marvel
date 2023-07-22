@@ -1,9 +1,6 @@
-import { useEffect } from 'react'
-
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-
-import { Fullscreen } from '@mui/icons-material'
+import Fullscreen from '@mui/icons-material/Fullscreen'
 
 import { useVideoContext } from '../VideoProvider'
 
@@ -26,8 +23,8 @@ const FullScreenButton = () => {
         // IE/Edge
         videoContainer.msRequestFullscreen()
       }
-      videoTagRef.style.width = 'auto'
-      videoTagRef.style.height = 'auto'
+      videoTagRef.style.width = '100%'
+      videoTagRef.style.height = '100%'
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen()
