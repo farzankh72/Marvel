@@ -10,14 +10,15 @@ import PlayButton from './components/PlayButton'
 import SoundButton from './components/SoundButton'
 import FullScreenButton from './components/FullScreenButton'
 import useUserNetQuality from './api/hooks/useUserNetQuality'
-import QualitySelector from './components/QualitySelector/QualitySelector'
 import SpeedSelector from './components/SpeedSelector/SpeedSelector'
+import QualitySelector from './components/QualitySelector/QualitySelector'
 
 const VideoContext = createContext(null)
 
 export interface NbxPlayerProps {
-  videoData: string | Array<VideoModel>
+  poster?: string
   width?: 'xl' | 'md' | 'sm' | 'lg'
+  videoData: string | Array<VideoModel>
 }
 
 const VideoProvider = (props: NbxPlayerProps) => {
@@ -78,6 +79,9 @@ const VideoProvider = (props: NbxPlayerProps) => {
     videoTagRef.oncanplay = () => {
       setDuration(videoTagRef.duration)
     }
+
+    videoTagRef.poster = props.poster || ''
+
     videoTagRef.appendChild(sourceTagRef)
     if (videoContainerRef?.current?.innerHTML) {
       videoContainerRef.current.innerHTML = ''

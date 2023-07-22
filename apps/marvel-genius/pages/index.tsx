@@ -12,6 +12,7 @@ export function Index() {
       />
       <Divider />
       <VideoProvider
+        poster={'https://nobitex.ir/academy/api/file/download/ZtdNUgGvuyfuBoGuwEvi'}
         videoData={[
           {
             url:
