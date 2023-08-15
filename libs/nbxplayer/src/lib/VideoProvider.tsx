@@ -14,7 +14,22 @@ import useUserNetQuality from './api/hooks/useUserNetQuality'
 import SpeedSelector from './components/SpeedSelector/SpeedSelector'
 import QualitySelector from './components/QualitySelector/QualitySelector'
 
-const VideoContext = createContext(null)
+interface VideoDataModel {
+  play?: () => void
+  speedLvl?: number
+  duration?: number
+  containerRef?: any
+  currentTime?: number
+  soundOn?: () => void
+  qualityLabel?: string
+  props?: NbxPlayerProps
+  seek?: (time: number) => void
+  videoTagRef?: HTMLVideoElement
+  speed?: (number: number) => void
+  quality?: (url: string, quality: string) => void
+}
+
+const VideoContext = createContext<VideoDataModel>({})
 
 const SeekbarWrapper = styled(Grid)`
   bottom: 0;
