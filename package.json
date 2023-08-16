@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx run marvel-genius:serve"
+    "start": "nx run marvel-genius:serve",
+    "build": "nx run marvel-genius:build"
   },
   "private": true,
   "dependencies": {
@@ -13,6 +14,7 @@
     "@mui/material": "^5.14.0",
     "@nx/next": "16.5.1",
     "next": "13.4.1",
+    "radash": "^10.8.1",
     "react": "18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "18.2.0",

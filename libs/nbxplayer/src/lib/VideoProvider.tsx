@@ -44,18 +44,56 @@ export interface NbxPlayerProps {
 }
 
 const VideoProvider = (props: NbxPlayerProps) => {
+  let timer
   const [duration, setDuration] = useState<number>(0)
   const [speedLvl, setSpeedLvl] = useState<number>(1)
   const [currentTime, setCurrentTime] = useState<number>(0)
-  const [videoTagRef, setVideoTagRef] = useState<HTMLVideoElement>()
+  const [videoTagRef, setVideoTagRef] = useState<HTMLVideoElement>(null)
   const [sourceTagRef, setSourceTagRef] = useState<HTMLSourceElement>()
   const [qualityLabel, setQualityLabel] = useState<string>('')
+
+  const [isHovered, setIsHovered] = useState<boolean>(true)
+  const [showSeekBar, setShowSeekBar] = useState<boolean>(true)
+  const [isMouseMoved, setIsMouseMoved] = useState<boolean>(true)
 
   const netQuality = useUserNetQuality()
 
   const containerRef = useRef()
   const videoContainerRef = useRef(null)
   const seekerContainerRef = useRef(null)
+
+  const onMouseHoverEnter = () => {
+    setIsHovered(true)
+  }
+
+  const onMouseHoverLeave = () => {
+    if (!videoTagRef.paused) {
+      timer = setTimeout(() => {
+        setIsHovered(false)
+        setIsMouseMoved(false)
+        setShowSeekBar(false)
+      }, 3500)
+    }
+    clearTimeout(timer)
+  }
+
+  const onMouseMove = () => {
+    setShowSeekBar(true)
+    setIsMouseMoved(true)
+    clearTimeout(timer)
+    if (!videoTagRef.paused) {
+      timer = setTimeout(() => {
+        setShowSeekBar(false)
+        setIsMouseMoved(false)
+      }, 3500)
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [])
 
   useEffect(() => {
     setVideoTagRef(document?.createElement('video'))
@@ -147,9 +185,26 @@ const VideoProvider = (props: NbxPlayerProps) => {
       }}
     >
       <Grid container ref={containerRef}>
-        <Grid item position={'relative'} display={'flex'}>
+        <Grid
+          item
+          display={'flex'}
+          position={'relative'}
+          onMouseEnter={() => onMouseHoverEnter()}
+          onMouseLeave={() => onMouseHoverLeave()}
+          onMouseMove={() => onMouseMove()}
+        >
           <Box ref={videoContainerRef} />
-          <SeekbarWrapper ref={seekerContainerRef} pr={2} pl={2} container>
+          <SeekbarWrapper
+            pr={2}
+            pl={2}
+            uuo={10}
+            container
+            ref={seekerContainerRef}
+            sx={{
+              display: !showSeekBar ? 'none' : 'inherit',
+              transition: 'all 5000ms ease-out',
+            }}
+          >
             <Grid item xs={12}>
               <SeekBar />
             </Grid>
